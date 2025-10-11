@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 export const metadata = {
-  title: 'Home'
-}
+  title: "Home",
+};
 
 const Homepage = () => {
   return (
@@ -9,7 +9,7 @@ const Homepage = () => {
       <h1>Ecommerce App</h1>
       <Button>Click</Button>
     </>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
