@@ -1,13 +1,11 @@
-import { Button } from "@/components/ui/button";
 export const metadata = {
   title: "Home",
 };
 
-const Homepage = () => {
+const Homepage = async () => {
   return (
     <>
       <h1>Ecommerce App</h1>
-      <Button>Click</Button>
     </>
   );
 };
