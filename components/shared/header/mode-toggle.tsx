@@ -12,7 +12,7 @@ import { SunMoon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-const ModeToogle = () => {
+const ModeToggle = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -64,4 +64,4 @@ const ModeToogle = () => {
   );
 };
 
-export default ModeToogle;
+export default ModeToggle;
