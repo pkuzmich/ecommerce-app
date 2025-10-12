@@ -40,3 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .zed/settings.json
+
+/lib/generated/prisma
