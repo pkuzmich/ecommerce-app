@@ -1,3 +1,6 @@
+import ProductList from "@/components/shared/product/product-list";
+import sampleData from "@/db/sample-data";
+
 export const metadata = {
   title: "Home",
 };
@@ -5,7 +8,7 @@ export const metadata = {
 const Homepage = async () => {
   return (
     <>
-      <h1>Ecommerce App</h1>
+      <ProductList data={sampleData.products} title="Featured Products" />
     </>
   );
 };
