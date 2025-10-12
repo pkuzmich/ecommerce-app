@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Product } from "./types";
 import Link from "next/link";
 import Image from "next/image";
-import { Bold } from "lucide-react";
+import ProductPrice from "./product-price";
 
 interface ProductCardProps {
   product: Product;
@@ -30,7 +30,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex-between gap-4">
           <p>{product.rating} Stars</p>
           {product.stock > 0 ? (
-            <p className="font-bold">${product.price}</p>
+            <ProductPrice
+              value={Number(product.price)}
+              className="text-red-500"
+            />
           ) : (
             <p className="text-destructive">Out of Stock</p>
           )}

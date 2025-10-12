@@ -1,4 +1,4 @@
-import ProductCard from "./product";
+import ProductCard from "./product-card";
 import { Product } from "./types";
 
 type ProductListProps = {
