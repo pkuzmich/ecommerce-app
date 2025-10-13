@@ -7,7 +7,7 @@ type ProductListProps = {
   limit?: number;
 };
 
-const ProductList = ({ data, title, limit = 4 }: ProductListProps) => {
+const ProductList = ({ data, title, limit }: ProductListProps) => {
   const limitedData = limit ? data.slice(0, limit) : data;
 
   return (
