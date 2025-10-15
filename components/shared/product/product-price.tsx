@@ -5,10 +5,7 @@ type ProductPriceProps = {
   className?: string;
 };
 
-const ProductPrice: React.FC<ProductPriceProps> = ({
-  value,
-  className,
-}: ProductPriceProps) => {
+const ProductPrice = ({ value, className }: ProductPriceProps) => {
   const stringValue = value.toFixed(2);
   const [intValue, floatValue] = stringValue.split(".");
 

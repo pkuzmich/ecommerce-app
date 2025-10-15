@@ -1,5 +1,5 @@
 import ProductCard from "./product-card";
-import { Product } from "./types";
+import { Product } from "@/types";
 
 type ProductListProps = {
   data: Product[];
