@@ -46,13 +46,9 @@ const UserButton = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="p-0 mb-1s">
+          <DropdownMenuItem className="p-0 mb-1">
             <form action={signOutUser} className="w-full">
-              <Button
-                type="submit"
-                variant="ghost"
-                className="cursor-pointer w-full px-2 py-4 h-4 justify-start"
-              >
+              <Button type="submit" variant="ghost" className="cursor-pointer w-full h-4 justify-start">
                 <LogOutIcon /> Sign Out
               </Button>
             </form>
