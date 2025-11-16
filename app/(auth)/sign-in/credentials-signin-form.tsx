@@ -8,6 +8,7 @@ import { signInDefaultValues } from '@/lib/constants';
 import { LoaderCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useActionState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 interface SignInButtonProps {
   pending: boolean;
@@ -25,8 +26,12 @@ const CredentialsSignInForm = () => {
   const initialState = { success: false, message: '' };
   const [state, formAction, isPending] = useActionState(signInCredentials, initialState);
 
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
+
   return (
     <form action={formAction}>
+      <input type="hidden" name="callbackUrl" value={callbackUrl} />
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="email">E-mail</Label>
