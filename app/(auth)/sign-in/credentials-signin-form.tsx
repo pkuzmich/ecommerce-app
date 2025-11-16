@@ -23,10 +23,10 @@ const SignInButton = ({ pending }: SignInButtonProps) => {
 
 const CredentialsSignInForm = () => {
   const initialState = { success: false, message: '' };
-  const [state, dispatch, isPending] = useActionState(signInCredentials, initialState);
+  const [state, formAction, isPending] = useActionState(signInCredentials, initialState);
 
   return (
-    <form action={dispatch}>
+    <form action={formAction}>
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="email">E-mail</Label>
