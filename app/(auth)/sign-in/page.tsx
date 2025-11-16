@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 };
 
 interface SignInPageProps {
-  searchParams: {
-    callbackUrl?: string;
-  };
+  searchParams: Promise<{ callbackUrl?: string }>;
 }
 
 const SignInPage = async (props: SignInPageProps) => {
