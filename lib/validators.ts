@@ -3,12 +3,9 @@ import { formatNumberWithDecimal } from './utils';
 
 const currency = z
   .string()
-  .refine(
-    (value) => (
-      /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))),
-      'Price must have exactly two decimal places'
-    )
-  );
+  .refine((value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))), {
+    message: 'Price must have exactly two decimal places'
+  });
 
 // Schema for inserting products
 export const insertProductSchema = z.object({
@@ -29,3 +26,16 @@ export const signInFormSchema = z.object({
   email: z.email('Invalid email address'),
   password: z.string().min(5, 'Password must be at least 5 characters long')
 });
+
+// Schema for signing users up
+export const signUpFormSchema = z
+  .object({
+    name: z.string().min(3, 'Name must be at least 3 characters long'),
+    email: z.email('Invalid email address'),
+    password: z.string().min(5, 'Password must be at least 5 characters long'),
+    confirmPassword: z.string().min(5, 'Confirm password must be at least 5 characters long')
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'] // Error appears on confirmPassword field
+  });
