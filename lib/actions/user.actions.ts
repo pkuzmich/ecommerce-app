@@ -4,7 +4,7 @@ import { signInFormSchema, signUpFormSchema } from '../validators';
 import { signIn, signOut } from '@/auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { prisma } from '@/db/prisma';
-import { hashSync } from 'bcrypt-ts-edge/browser';
+import { hashSync } from 'bcrypt-ts-edge';
 
 // SignIn user with credentials
 export async function signInCredentials(prevState: unknown, formData: FormData) {
@@ -44,7 +44,11 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     user.password = await hashSync(user.password, 10);
 
     await prisma.user.create({
-      data: user
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password
+      }
     });
 
     await signIn('credentials', {
@@ -52,12 +56,12 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       password: plainPassword
     });
 
-    return { success: true, message: 'Signed up successfully' };
+    return { success: true, message: 'User registered successfully' };
   } catch (error) {
-    console.error(error);
+    console.log('**Error: ', error);
     if (isRedirectError(error)) {
       throw error;
     }
-    return { success: false, message: 'Failed to sign up' };
+    return { success: false, message: 'User was not registered' };
   }
 }
