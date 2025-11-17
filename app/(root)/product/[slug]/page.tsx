@@ -1,10 +1,10 @@
-import ProductImages from "@/components/shared/product/product-images";
-import ProductPrice from "@/components/shared/product/product-price";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { getProductBySlug } from "@/lib/actions/product.actions";
-import { notFound } from "next/navigation";
+import ProductImages from '@/components/shared/product/product-images';
+import ProductPrice from '@/components/shared/product/product-price';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { getProductBySlug } from '@/lib/actions/product.actions';
+import { notFound } from 'next/navigation';
+import AddToCart from '@/components/shared/product/add-to-cart';
 
 interface ProductDetailProps {
   params: Promise<{ slug: string }>;
@@ -63,7 +63,16 @@ const ProductDetail = async (props: ProductDetailProps) => {
                 </div>
                 {product.stock > 0 && (
                   <div className="flex-center mt-4">
-                    <Button className="w-full">Add to Cart</Button>
+                    <AddToCart
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        quantity: 1,
+                        image: product.images[0],
+                        price: product.price.toString()
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
