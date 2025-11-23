@@ -38,3 +38,14 @@ export function formatErrorMessage(error: any): string {
     return typeof error.message === 'string' ? error.message : JSON.stringify(error.message);
   }
 }
+
+// Round number to 2 decimal places
+export function roundNumberTo2DecimalPlaces(value: number | string): number {
+  if (typeof value === 'number') {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  } else if (typeof value === 'string') {
+    return roundNumberTo2DecimalPlaces(Number(value));
+  } else {
+    throw new Error('Invalid value');
+  }
+}
