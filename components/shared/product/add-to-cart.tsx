@@ -20,7 +20,8 @@ const AddToCart = ({ item }: { item: CartItem }) => {
         toast.error(response?.message || 'Failed to add item to cart');
       } else {
         // Handle success add to cart
-        toast(`${item.name} added to cart`, {
+        // toast(`${item.name} added to cart`, {
+        toast(response?.message, {
           action: {
             label: 'Go to Cart',
             onClick: () => router.push('/cart')
