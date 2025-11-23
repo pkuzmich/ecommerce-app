@@ -16,8 +16,8 @@ const AddToCart = ({ item }: { item: CartItem }) => {
     try {
       const response = await addItemToCart(item);
 
-      if (!response.success) {
-        toast.error(response.message);
+      if (!response?.success) {
+        toast.error(response?.message || 'Failed to add item to cart');
       } else {
         // Handle success add to cart
         toast(`${item.name} added to cart`, {
