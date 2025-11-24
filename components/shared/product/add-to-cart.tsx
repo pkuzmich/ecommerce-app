@@ -5,8 +5,8 @@ import { LoaderCircle, PlusIcon, MinusIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { addItemToCart, removeItemFromCart } from '@/lib/actions/cart.actions';
 import { toast } from 'sonner';
-import { useState } from 'react';
 import { Cart } from '@/types';
+import { useTransition } from 'react';
 
 interface AddToCartProps {
   item: CartItem;
@@ -16,14 +16,13 @@ interface AddToCartProps {
 const AddToCart = (props: AddToCartProps) => {
   const { item, cart } = props;
 
+  const [isPending, startTransition] = useTransition();
+
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = async () => {
-    setIsLoading(true);
-    try {
+    startTransition(async () => {
       const response = await addItemToCart(item);
-
       if (!response?.success) {
         toast.error(response?.message || 'Failed to add item to cart');
       } else {
@@ -35,24 +34,19 @@ const AddToCart = (props: AddToCartProps) => {
           }
         });
       }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   // Handle remove from cart
   const handleRemoveFromCart = async () => {
-    setIsLoading(true);
-    try {
+    startTransition(async () => {
       const response = await removeItemFromCart(item.productId);
       if (!response?.success) {
         toast.error(response?.message || 'Failed to remove item from cart');
       } else {
         toast(response?.message);
       }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   // Check if item is in cart
@@ -61,11 +55,19 @@ const AddToCart = (props: AddToCartProps) => {
   return existingItem ? (
     <>
       <Button type="button" variant="outline" onClick={handleRemoveFromCart}>
-        <MinusIcon className="w-4 h-4" />
+        {isPending ? (
+          <LoaderCircle className="size-4 animate-spin" />
+        ) : (
+          <MinusIcon className="w-4 h-4" />
+        )}
       </Button>
       <span className="px-2">{existingItem.quantity}</span>
       <Button type="button" variant="outline" onClick={handleAddToCart}>
-        <PlusIcon className="w-4 h-4" />
+        {isPending ? (
+          <LoaderCircle className="size-4 animate-spin" />
+        ) : (
+          <PlusIcon className="w-4 h-4" />
+        )}
       </Button>
     </>
   ) : (
@@ -74,9 +76,9 @@ const AddToCart = (props: AddToCartProps) => {
         className="w-full cursor-pointer min-w-32"
         type="button"
         onClick={handleAddToCart}
-        disabled={isLoading}
+        disabled={isPending}
       >
-        {isLoading ? (
+        {isPending ? (
           <LoaderCircle className="size-4 animate-spin" />
         ) : (
           <>
