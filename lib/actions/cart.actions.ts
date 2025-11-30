@@ -70,8 +70,9 @@ export async function addItemToCart(data: CartItem) {
         data: newCart
       });
 
-      // Revalidate product page
+      // Revalidate product and cart pages
       revalidatePath(`/product/${product.slug}`);
+      revalidatePath('/cart');
 
       return {
         success: true,
@@ -108,6 +109,7 @@ export async function addItemToCart(data: CartItem) {
       });
 
       revalidatePath(`/product/${product.slug}`);
+      revalidatePath('/cart');
 
       return {
         success: true,
@@ -122,6 +124,10 @@ export async function addItemToCart(data: CartItem) {
   }
 }
 
+/**
+ * Get user cart
+ * @returns User cart or undefined if no cart found
+ */
 export async function getMyCart() {
   // Check for cart cookie
   const sessionCartId = (await cookies()).get('sessionCartId')?.value;
@@ -188,8 +194,9 @@ export async function removeItemFromCart(productId: string) {
       }
     });
 
-    // Revalidate product page
+    // Revalidate product and cart pages
     revalidatePath(`/product/${product.slug}`);
+    revalidatePath('/cart');
 
     return {
       success: true,

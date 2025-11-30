@@ -49,3 +49,19 @@ export function roundNumberTo2DecimalPlaces(value: number | string): number {
     throw new Error('Invalid value');
   }
 }
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
+  currency: 'USD',
+  style: 'currency',
+  minimumFractionDigits: 2
+});
+
+export function formatCurrency(amount: number | string) {
+  if (typeof amount === 'number') {
+    return CURRENCY_FORMATTER.format(amount);
+  } else if (typeof amount === 'string') {
+    return CURRENCY_FORMATTER.format(Number(amount));
+  } else {
+    throw new Error('Invalid amount');
+  }
+}
