@@ -18,9 +18,9 @@ const ShippingAddressPage = async () => {
   const user = await getUserById(userId);
 
   return (
-    <div>
+    <>
       <h1>Shipping Address</h1>
-    </div>
+    </>
   );
 };
 
